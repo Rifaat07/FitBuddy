@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    FitBuddy | Admin
+</title>
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', path='style.css') }}"
+>
+
+</head>
+
+<body>
+
+<header class="site-header">
+
+<div class="container nav">
+
+<a class="brand" href="/">
+    FitBuddy
+</a>
+
+<nav>
+
+<a href="/">
+    Generate Plan
+</a>
+
+<a href="/view-all-users">
+    Admin View
+</a>
+
+<a href="/docs">
+    API Docs
+</a>
+
+</nav>
+
+</div>
+
+</header>
+
+
+<main class="container">
+
+
+<section class="hero compact">
+
+<div>
+
+<p class="eyebrow">
+    ADMIN DASHBOARD
+</p>
+
+<h1>
+    All registered users
+</h1>
+
+<p class="lead">
+    Review profiles and compare original
+    and feedback-updated plans.
+</p>
+
+</div>
+
+
+<div class="count-card">
+
+<strong>
+    {{ users|length }}
+</strong>
+
+<span>
+    users
+</span>
+
+</div>
+
+</section>
+
+
+{% if not users %}
+
+<section class="card empty">
+
+<h2>
+    No users yet
+</h2>
+
+<p>
+    Create the first FitBuddy plan from
+    the home page.
+</p>
+
+</section>
+
+{% endif %}
+
+
+{% for user in users %}
+
+<article class="card admin-user">
+
+
+<div class="user-header">
+
+<div>
+
+<p class="eyebrow">
+    {{ user.user_id }}
+</p>
+
+<h2>
+    {{ user.name }}
+</h2>
+
+</div>
+
+
+<div class="tags">
+
+<span>
+    {{ user.goal }}
+</span>
+
+<span>
+    {{ user.intensity }}
+</span>
+
+<span>
+    {{ user.age }} yrs
+</span>
+
+<span>
+    {{ user.weight }} kg
+</span>
+
+</div>
+
+</div>
+
+
+<div class="plan-columns">
+
+
+<div>
+
+<h3>
+    Original Plan
+</h3>
+
+<pre class="plan small">{{ user.original_plan }}</pre>
+
+</div>
+
+
+<div>
+
+<h3>
+    Updated Plan
+</h3>
+
+
+{% if user.updated_plan %}
+
+<pre class="plan small">{{ user.updated_plan }}</pre>
+
+{% else %}
+
+<div class="empty-plan">
+    No feedback update yet.
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+
+{% if user.feedback %}
+
+<div class="feedback">
+
+<strong>
+    Latest feedback:
+</strong>
+
+{{ user.feedback }}
+
+</div>
+
+{% endif %}
+
+
+</article>
+
+{% endfor %}
+
+</main>
+
+</body>
+
+</html>

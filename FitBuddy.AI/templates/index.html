@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>FitBuddy | AI Fitness Planner</title>
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', path='style.css') }}"
+>
+
+</head>
+
+<body>
+
+<header class="site-header">
+
+<div class="container nav">
+
+<a class="brand" href="/">
+    FitBuddy
+</a>
+
+<nav>
+    <a href="/">Generate Plan</a>
+    <a href="/view-all-users">Admin View</a>
+    <a href="/docs">API Docs</a>
+</nav>
+
+</div>
+
+</header>
+
+
+<main class="container">
+
+<section class="hero">
+
+<div>
+
+<p class="eyebrow">
+    AI FITNESS PLANNER
+</p>
+
+<h1>
+    Your personalized 7-day fitness plan.
+</h1>
+
+<p class="lead">
+    Enter your profile and FitBuddy will generate
+    a structured workout plan plus a practical
+    nutrition or recovery tip.
+</p>
+
+</div>
+
+
+<div class="hero-card">
+
+<span>Powered by</span>
+
+<strong>
+    Google Gemini
+</strong>
+
+<small>
+    FastAPI · SQLAlchemy · SQLite · Jinja2
+</small>
+
+</div>
+
+</section>
+
+
+{% if error %}
+
+<div class="alert error">
+    {{ error }}
+</div>
+
+{% endif %}
+
+
+<section class="card">
+
+<p class="eyebrow">
+    GET STARTED
+</p>
+
+<h2>
+    Create your plan
+</h2>
+
+
+<form
+    action="/generate-workout"
+    method="post"
+    class="form-grid"
+>
+
+
+<label>
+
+User ID
+
+<input
+    name="user_id"
+    placeholder="FB1001"
+    required
+    maxlength="50"
+>
+
+</label>
+
+
+<label>
+
+Name
+
+<input
+    name="name"
+    placeholder="Your name"
+    required
+    maxlength="100"
+>
+
+</label>
+
+
+<label>
+
+Age
+
+<input
+    name="age"
+    type="number"
+    min="13"
+    max="100"
+    placeholder="25"
+    required
+>
+
+</label>
+
+
+<label>
+
+Weight (kg)
+
+<input
+    name="weight"
+    type="number"
+    min="20"
+    max="500"
+    step="0.1"
+    placeholder="70"
+    required
+>
+
+</label>
+
+
+<label>
+
+Fitness Goal
+
+<select
+    name="goal"
+    required
+>
+
+<option value="">
+    Select a goal
+</option>
+
+<option>
+    Weight loss
+</option>
+
+<option>
+    Muscle gain
+</option>
+
+<option>
+    General fitness
+</option>
+
+<option>
+    Strength
+</option>
+
+<option>
+    Flexibility
+</option>
+
+<option>
+    Endurance
+</option>
+
+</select>
+
+</label>
+
+
+<label>
+
+Workout Intensity
+
+<select
+    name="intensity"
+    required
+>
+
+<option value="">
+    Select intensity
+</option>
+
+<option>
+    Low
+</option>
+
+<option>
+    Medium
+</option>
+
+<option>
+    High
+</option>
+
+</select>
+
+</label>
+
+
+<div class="form-actions">
+
+<button
+    class="button primary"
+    type="submit"
+>
+    Generate 7-Day Plan
+</button>
+
+</div>
+
+</form>
+
+</section>
+
+
+<section class="info-grid">
+
+<article>
+
+<h3>
+    Personalized
+</h3>
+
+<p>
+    Your goal, age, weight and preferred
+    intensity are included in the AI prompt.
+</p>
+
+</article>
+
+
+<article>
+
+<h3>
+    Adaptive
+</h3>
+
+<p>
+    Submit feedback after generation and
+    FitBuddy can create a revised plan.
+</p>
+
+</article>
+
+
+<article>
+
+<h3>
+    Persistent
+</h3>
+
+<p>
+    Your original and updated plans are
+    stored in SQLite for later review.
+</p>
+
+</article>
+
+</section>
+
+</main>
+
+</body>
+
+</html>

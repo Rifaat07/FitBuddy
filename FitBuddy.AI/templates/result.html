@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    FitBuddy | Your Plan
+</title>
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', path='style.css') }}"
+>
+
+</head>
+
+<body>
+
+<header class="site-header">
+
+<div class="container nav">
+
+<a class="brand" href="/">
+    FitBuddy
+</a>
+
+<nav>
+
+<a href="/">
+    New Plan
+</a>
+
+<a href="/view-all-users">
+    Admin View
+</a>
+
+<a href="/docs">
+    API Docs
+</a>
+
+</nav>
+
+</div>
+
+</header>
+
+
+<main class="container">
+
+
+{% if message %}
+
+<div class="alert success">
+    {{ message }}
+</div>
+
+{% endif %}
+
+
+{% if error %}
+
+<div class="alert error">
+    {{ error }}
+</div>
+
+{% endif %}
+
+
+<section class="profile card">
+
+<div>
+
+<p class="eyebrow">
+    PERSONALIZED PLAN
+</p>
+
+<h1>
+    Hello, {{ user.name }}!
+</h1>
+
+<p>
+    User ID:
+    <strong>
+        {{ user.user_id }}
+    </strong>
+</p>
+
+</div>
+
+
+<div class="profile-stats">
+
+<span>
+    <b>{{ user.age }}</b>
+    years
+</span>
+
+<span>
+    <b>{{ user.weight }}</b>
+    kg
+</span>
+
+<span>
+    <b>{{ user.goal }}</b>
+</span>
+
+<span>
+    <b>{{ user.intensity }}</b>
+    intensity
+</span>
+
+</div>
+
+</section>
+
+
+<section class="card">
+
+<p class="eyebrow">
+
+{% if is_updated %}
+UPDATED PLAN
+{% else %}
+ORIGINAL PLAN
+{% endif %}
+
+</p>
+
+<h2>
+    7-Day Workout Plan
+</h2>
+
+<pre class="plan">{{ current_plan }}</pre>
+
+</section>
+
+
+<section class="card">
+
+<p class="eyebrow">
+    NUTRITION & RECOVERY
+</p>
+
+<h2>
+    Today's tip
+</h2>
+
+<p class="tip">
+    {{ user.nutrition_tip }}
+</p>
+
+</section>
+
+
+<section class="card">
+
+<p class="eyebrow">
+    ADAPT YOUR PLAN
+</p>
+
+<h2>
+    Give feedback
+</h2>
+
+<p class="muted">
+    Tell FitBuddy what you want changed,
+    such as adding cardio, reducing volume,
+    or including more flexibility work.
+</p>
+
+
+<form
+    action="/submit-feedback"
+    method="post"
+>
+
+<input
+    type="hidden"
+    name="user_id"
+    value="{{ user.user_id }}"
+>
+
+
+<textarea
+    name="feedback"
+    rows="5"
+    maxlength="2000"
+    placeholder="Example: Add two short cardio sessions and make the leg day easier."
+    required
+></textarea>
+
+
+<button
+    class="button primary"
+    type="submit"
+>
+    Update My Plan
+</button>
+
+</form>
+
+</section>
+
+
+<div class="footer-actions">
+
+<a
+    class="button secondary"
+    href="/"
+>
+    Create another plan
+</a>
+
+<a
+    class="button secondary"
+    href="/view-all-users"
+>
+    View all users
+</a>
+
+</div>
+
+</main>
+
+</body>
+
+</html>
